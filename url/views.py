@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import redirect
 
-@api_view(['POST', 'GET'])  # Allow both POST and GET methods
+@api_view(['POST', 'GET']) 
 def urlShort(request):
     if request.method == 'POST':
         serializer = UrlDataSerializer(data=request.data)
@@ -22,12 +22,12 @@ def urlShort(request):
             data = UrlData.objects.all()
             serializer = UrlDataSerializer(data, many=True)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'GET':  # Handle GET requests
+    elif request.method == 'GET': 
         data = UrlData.objects.all()
         serializer = UrlDataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-@api_view(['GET'])  # Allow only GET method
+@api_view(['GET'])
 def urlRedirect(request, shorturl):
     try:
         data = UrlData.objects.get(shorturl=shorturl)
